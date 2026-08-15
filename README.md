@@ -45,7 +45,7 @@ closing seconds of a window are the **endgame**.
 
 ### Construction
 
-Polymarket's public order-book archive, from 2026-02-21 onward, holds every
+A public order-book archive, from 2026-02-21 onward, holds every
 snapshot, level delta and fill. Events are replayed in time order onto a 1-second
 grid of best bid, best ask, midpoint, resting size and volume. One row is one
 **quote-second**, the unit used throughout.
@@ -180,7 +180,7 @@ P(Up | mid = p) = σ( a + b · logit(p) )
 
 At `a = 0`, `b = 1` this reduces to `P = p`. Where `b > 1` the truth lies further
 from 50% than the quote: at `b = 1.077`, a quoted 80¢ settles Up 81.7% of the
-time and a quoted 20¢ settles Up 18.4%. Favourites win more often than
+time and a quoted 20¢ settles Up 18.4%. Favorites win more often than
 advertised and longshots less often. That is the favourite-longshot bias.
 
 ### Fit
@@ -575,12 +575,6 @@ every net edge an upper bound.
 - This is taker economics. The maker side, where the fee is zero but adverse
 selection is not, is not covered.
 - No mechanism is proposed for why `b > 1` arises.
-
-I chose to keep the execution side of Part 5 out of this repository, because the
-code and order records behind it contain live trading information. That section
-is therefore the one part a reader cannot check, and it rests on 432
-out-of-sample triggers and 108 live fills. Everything else here runs from the
-committed artifacts.
 
 ---
 
