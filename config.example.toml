@@ -1,0 +1,17 @@
+# Copy to config.toml (gitignored) and set the paths for your machine.
+#
+# The staged 1-second grids are not redistributed. Rebuild them from the public
+# order-book archive and Binance 1-second klines, then point stage_dir at the
+# result. The source is configurable rather than hard-coded so that nothing in
+# this repository is specific to one checkout.
+
+[data]
+# Directory holding the staged grids, one parquet per archive-hour, named
+# obsx_*.parquet. Columns used: market_id, seconds_to_close, mid_price,
+# best_bid, best_ask, book_valid.
+stage_dir = "/path/to/staged/grids"
+
+# Glob for the market metadata parquets. Columns used: condition_id,
+# market_start_utc, market_end_utc, winning_outcome, window_seconds,
+# order_price_min_tick_size.
+markets_glob = "/path/to/raw/*_markets.parquet"

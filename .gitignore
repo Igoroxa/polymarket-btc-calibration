@@ -1,0 +1,21 @@
+# local configuration: paths are machine-specific
+config.toml
+
+# collected data is never committed
+*.parquet
+data/
+stage_*/
+
+# Kept local. This repository is a writeup, not a reproduction package: the
+# self-check, the unit tests and the CI job that runs them are development
+# tooling and are not part of what is published. verify.py still runs here and
+# should be run after any edit to the numbers in README.md.
+verify.py
+tests/
+.github/
+
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/

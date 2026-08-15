@@ -1,0 +1,3 @@
+split,span_days,days_with_data,windows_in_sample,windows_implied_by_schedule,captured
+train,63,62,15844,17856,0.8873207885304659
+oos,38,22,5294,6336,0.8355429292929293
