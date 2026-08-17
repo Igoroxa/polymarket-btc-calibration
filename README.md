@@ -113,15 +113,16 @@ experiment in [Part 4](#part-4-the-tick-artifact).
 Two filters stand between the contracts that existed and the ones fitted.
 
 Contracts open on a fixed schedule, 288 five-minute contracts a day, so coverage
-is exact: the fitted sample captures **88.7% in training and 83.6% out of
-sample**. The missing 11% and 16% never reached the archive. I checked those gaps
-for structure and found none, so I treat them as faults in the public archive
+is exact: the fitted sample captures **87.3% in training and 48.4% out of
+sample**. The missing 13% and 52% never reached the archive, the bulk of the
+latter being the contiguous June 13 to 28 gap. I checked the remaining gaps for
+structure and found none, so I treat them as faults in the public archive
 rather than as anything correlated with what is being measured.
 
 The coverage gate is far smaller. A window enters if at least 90% of seconds 1 to
 300 carry a valid two-sided book, which removes about 2% of what reaches the
 archive; admitted windows average 4.9997 of the 5 seconds in the final bucket. It
-looks only at the window's end, where the result lives, because a book that
+does not look only at the window's end, where the result lives, because a book that
 vanishes near the close most likely vanishes because the price is moving.
 
 ### Which contract, and how it is split
@@ -324,7 +325,7 @@ The same estimates as Part 2, compared against `b*` instead of 1:
 | 10–5s           | 1.033     | 0.0157 | −1.90       | 1.176     | 0.0378 | +2.99       |
 | **5–0s**        | **1.135** | 0.0173 | **+4.17**   | **1.240** | 0.0386 | **+4.59**   |
 
-![Only the last ten seconds clear break-even](figures/calibration_vs_threshold.png)
+![Only the endgame clears break-even](figures/calibration_vs_threshold.png)
 
 Bars are 95% intervals. The dashed line is a perfectly calibrated market and the
 solid one is break-even, `b* = 1.0629`; estimates below it are greyed out.
@@ -337,8 +338,8 @@ every bucket including 10–5s lies below break-even, and out of sample every
 bucket through 60–30s does. No shortfall is individually significant; what
 matters is that every one points the same way.
 
-The last ten seconds are the exception, in both splits. Part 4 asks whether that
-survivor is real.
+The endgame is the exception in both splits, the last five seconds in training
+and the last thirty out of sample. Part 4 asks whether that survivor is real.
 
 ### `b*` belongs to the venue
 
@@ -372,13 +373,13 @@ boundaries it is not, and in the endgame almost every quote is near a boundary
 because the outcome is nearly decided: **83% of final-five-second quote-seconds
 sit outside 5–95¢**, against 0.4% five minutes earlier.
 
-A market whose belief is 99.4% cannot quote it. The grid offers 99¢ or 100¢, and
-100¢ is not a live quote, so it shows 99¢. So does a market believing 98.6%, and
-so does one believing 99.9%. The 99¢ bucket holds everything from roughly 98.5%
-to 100%, and
+A market whose belief is 99.4% cannot quote it. The tightest book at the top is a
+99¢ bid against a 100¢ ask, so the midpoint shows 99.5¢. So does a market
+believing 99.1%, and so does one believing 99.9%. The 99.5¢ bucket holds
+everything from roughly 99% to 100%, and
 in the endgame that mass skews upward, because that is where markets go as they
 resolve. Its settle rate recovers the average belief inside it, which exceeds
-99%. The mirror case happens at 1¢.
+99.5%. The mirror case happens at 0.5¢.
 
 High prices settling more often than quoted and low prices less often is the
 signature of `b > 1`. The grid reproduces the pattern being measured, as a
@@ -563,7 +564,7 @@ returns nothing: granting the edge in full, execution still eats it.
 
 - One venue, one underlying, one contract length, about three months of fitted
 sample. Whether `b*` binds elsewhere is untested.
-- 11% of training contracts and 16% of out-of-sample contracts never reached the
+- 13% of training contracts and 52% of out-of-sample contracts never reached the
 archive, including a permanent gap from June 13 to 28.
 - The interior result rests on 12.3% of final-five-second observations and is not
 significant on its own. Its held-out counterpart cannot rule out a perfectly
@@ -580,8 +581,8 @@ selection is not, is not covered.
 
 ## Further work
 
-The binding constraint is data, not method. Roughly 11% of training contracts and
-16% of out-of-sample ones never reached the public archive, and the interior test
+The binding constraint is data, not method. Roughly 13% of training contracts and
+52% of out-of-sample ones never reached the public archive, and the interior test
 that corrects for the price grid keeps only 12.3% of endgame quotes, which leaves
 it without the power to confirm or reject what it measures. A cleaner feed,
 recorded directly rather than pulled from the archive, would close both gaps: it

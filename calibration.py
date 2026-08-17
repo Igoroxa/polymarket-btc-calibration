@@ -229,13 +229,13 @@ def archive_coverage(panel: pd.DataFrame) -> pd.DataFrame:
         if not len(g):
             continue
         last = end or (g.open_utc.max().normalize() + pd.Timedelta(days=1))
-        observed_days = g.day.nunique()
+        span_days = (last - start).days
         rows.append({
             "split": split,
-            "span_days": (last - start).days,
-            "days_with_data": observed_days,
+            "span_days": span_days,
+            "days_with_data": int(g.day.nunique()),
             "windows_in_sample": int(g.market_id.nunique()),
-            "windows_implied_by_schedule": observed_days * per_day,
+            "windows_implied_by_schedule": span_days * per_day,
         })
     out = pd.DataFrame(rows)
     out["captured"] = out.windows_in_sample / out.windows_implied_by_schedule

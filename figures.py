@@ -158,7 +158,7 @@ def fig_calibration_vs_threshold(buckets: pd.DataFrame):
     ax.set_xticklabels(order)
     ax.set_xlabel("time remaining on the contract")
     ax.set_ylabel("recalibration slope  $b$")
-    _title(fig, "Only the last ten seconds clear break-even")
+    _title(fig, "Only the endgame clears break-even")
     return _save(fig, "calibration_vs_threshold.png")
 
 
